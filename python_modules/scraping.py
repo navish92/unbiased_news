@@ -3,6 +3,8 @@ import requests
 from bs4 import BeautifulSoup
 import random
 import time
+from newspaper import Article
+import re 
 
 def general_scraper(url):
     """
@@ -22,7 +24,7 @@ def general_scraper(url):
             soup = BeautifulSoup(response.text, 'html5lib')
             return soup
         else:
-            print(f"Did not get status code 200 for url: \n{url}")
+            print(f"Did not get status code 200 for url: \n{url}\n.Instead got status code {response.status_code}")
             return None
     except Exception as err_msge:
         print(f"Error while scraping: {err_msge}")
@@ -161,3 +163,48 @@ def allsides_story_parser(story_links, filename = "", verbose = 0):
         time.sleep(.5+.5*random.random())
 
     return stories_df
+
+def newspaper3k_articles(stories_flat_df):
+
+    for row_idx, row in stories_flat_df.iterrows():
+        url = row['news_link']
+        authors = []
+        publish_date = None
+        text = None
+        
+        try:
+            article = Article(url)
+            article.download()
+            article.parse()
+            
+            authors = article.authors
+            publish_date = article.publish_date
+            text = article.text
+            
+        except:
+            print(f"Error retrieving article from {url}")
+        
+        stories_flat_df.loc[row_idx, 'authors'] = authors
+        stories_flat_df.loc[row_idx, 'publish_date'] = publish_date
+        stories_flat_df.loc[row_idx, 'text'] = text
+
+    return stories_flat_df
+
+def fox_news_url_cleaner(url):
+    """
+    
+
+    Args:
+        url ([type]): [description]
+
+    Returns:
+        [type]: [description]
+    """
+
+    if url.find("www.foxnews.com") >= 0:
+        url = re.sub(r'/\d*/\d*/\d*', '', url)
+        url = re.sub(r'.html\b', '', url)
+        url = url.rstrip('/')
+        return url
+    else:
+        return url
