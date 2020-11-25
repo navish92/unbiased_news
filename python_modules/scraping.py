@@ -208,3 +208,30 @@ def fox_news_url_cleaner(url):
         return url
     else:
         return url
+
+def news_articles_adv_scraper(stories_flat_df):
+
+    for row_idx, row in stories_flat_df.iterrows():
+        url = row['news_link']
+        news_source = row['news_source']
+        authors = []
+        publish_date = None
+        text = None
+        
+        try:
+            article = Article(url)
+            article.download()
+            article.parse()
+            
+            authors = article.authors
+            publish_date = article.publish_date
+            text = article.text
+            
+        except:
+            print(f"Error retrieving article from {url}")
+        
+        stories_flat_df.loc[row_idx, 'authors'] = authors
+        stories_flat_df.loc[row_idx, 'publish_date'] = publish_date
+        stories_flat_df.loc[row_idx, 'text'] = text
+
+    return stories_flat_df
