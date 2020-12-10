@@ -258,15 +258,16 @@ def unbias_gen(df):
     st.markdown(sum_art_to_publish, unsafe_allow_html=True)
     st.markdown('''---''')
     st.write('<br><b><u>Source Articles Analysis</u></b><br>', unsafe_allow_html=True)
+    st.write('<b>Note:</b> Sentences that were determined to be common in both articles are highlighted in green below.' , unsafe_allow_html=True)
 
-    st.write(f"<u>Article {smaller_article.iloc[0].loc['global_bias']} source is published by {smaller_article.iloc[0].loc['news_source']}</u>")
+    st.write(f"<u>Article {smaller_article.iloc[0].loc['global_bias']} source is published by {smaller_article.iloc[0].loc['news_source']}</u>", unsafe_allow_html=True)
     st.write(f"Title: <b>{smaller_article.iloc[0].loc['news_title']} </b>", unsafe_allow_html = True)
 
     st.markdown(smaller_article_html_text, unsafe_allow_html = True)
 
     st.write()
 
-    st.write(f"<u>Article {bigger_article.iloc[0].loc['global_bias']} source is published by {bigger_article.iloc[0].loc['news_source']}</u>")
+    st.write(f"<u>Article {bigger_article.iloc[0].loc['global_bias']} source is published by {bigger_article.iloc[0].loc['news_source']}</u>", unsafe_allow_html=True)
     st.write(f"Title: <b>{bigger_article.iloc[0].loc['news_title']} </b>", unsafe_allow_html = True)
     st.markdown(bigger_article_html_text, unsafe_allow_html = True)
 
