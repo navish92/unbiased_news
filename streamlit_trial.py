@@ -273,12 +273,12 @@ def unbias_gen(df):
 
     return summary_article
 
-# def make_clickable_link (url, text):
-#     '''
-#     Will make any link a hyperlink of the given text.
-#     '''
+def make_clickable_link (url, text):
+    '''
+    Will make any link a hyperlink of the given text.
+    '''
 
-#     return f'<a target="_blank" href="{url}">{text}</a>'
+    return f'<a target="_blank" href="{url}">{text}</a>'
 
 if __name__ == "__main__":
     # model = SentenceTransformer("E:\\roberta_large_sentence_transformer")
@@ -302,20 +302,20 @@ if __name__ == "__main__":
     st.markdown('''
     Please choose the link to a left & right leaning news article from any the specified news outlets:  
     ''')
-
+    
     st.markdown('''
     ### Left Leaning News Outlets:
-    - HuffPost 
-    - New York Times (News)
-    - Washington Post 
-    ''')
+    - ''' + make_clickable_link("https://www.huffpost.com/","HuffPost") + '''
+    - ''' + make_clickable_link("https://www.nytimes.com/","New York Times (News)") + '''
+    - ''' + make_clickable_link("https://www.washingtonpost.com/","Washington Post") + ''' 
+    ''', unsafe_allow_html=True)
     left_url = st.text_input('Enter link for an article that leans left')
     st.write()
     st.markdown('''
     ### Right Leaning News Outlets:
-    - Washington Times 
-    - Fox News (Online News)
-    ''')
+    - ''' + make_clickable_link("https://www.washingtontimes.com/","Washington Times") + ''' 
+    - ''' + make_clickable_link("https://www.foxnews.com/","Fox News (Online News)") + '''
+    ''', unsafe_allow_html=True)
     right_url = st.text_input('Enter link for an article that leans right')
 
     button_summarize = st.button("Summarize for me!")
