@@ -11,7 +11,7 @@ If we the people, want to seek a wholesome understanding, it is expected that we
 Using news articles written on the same topic by outlets who are on different ranges of political bias spectrum, I would like to create a model that can combine and summarize these articles to display what’s commonly being said. This will serve as a springboard objectives towards an array of downstream developments.
 
 ## Data Source: 
-[All Sides](www.allsides.com)
+[All Sides](www.allsides.com)   
 Fox News, Washington Times, New York Times, Washington Post, HuffPost
 
 ## Approach:
