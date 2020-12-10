@@ -8,13 +8,25 @@ If we the people, want to seek a wholesome understanding, it is expected that we
 
 ## Objective  
 
-Using news articles written on the same topic by outlets who are on different ranges of political bias spectrum, I would like to create a model that can combine and summarize these articles to display what’s commonly being said and what is being mentioned solely be one side. 
-Not only will this allow us to establish common ground on what is definitive, but also help us understand the narrative source for those who hold differing viewpoints.
-Data Source: www.allsides.com (to start off with; will add more if time permits).
+Using news articles written on the same topic by outlets who are on different ranges of political bias spectrum, I would like to create a model that can combine and summarize these articles to display what’s commonly being said. This will serve as a springboard objectives towards an array of downstream developments.
 
-## Steps:
-1. Combine & present what is commonly being said, using 2 articles – one from a left leaning organization and another from a right leaning organization.
-1. Find ways to summarize the above, to make a more digestible read.
+## Data Source: 
+[All Sides](www.allsides.com)
+Fox News, Washington Times, New York Times, Washington Post, HuffPost
+
+## Approach:
+
+1. Allsides contains news headlines & links to a left leaning, right leaning and center leaning news organization for that headline. Hence, all 2000+ news headlines from All Sides were scrapped.
+1. Individual news sites were then scrapped to obtain the entire news articles. To allow for progress, only 5 news organization were focused on at present - as each news organization required its own scrapping & cleaning steps.
+1. The articles were arranged in a giant corpus and at first LDA/NMF Topic Modeling, Doc2Vec & Top2Vec techniques were attempted. The resultant scores were experimented with to see if sentence pairs could be created, to no avail.
+1. Sentence embeddings from Sentence Transformers were ultimately used, employing the power of transfer learning. The resultant embeddings were used to create best matching pairs, using cosine similarity.
+1. The pairs were ultimately summarized to give a digestible read of what's commonly being said across the political spectrum on the provided news headlines & their associated articles
+
+## Result:
+
+The primary objective of the project was accomplished. The deployed streamlit based app allows for providing links to any two articles (from the selected 5 news organizations) and receive a live summary of common points. The original articles are also presented below, with highlighting for sentences that were used to make the summary.
+
+## Future Steps:
 1. Identify ways to scope out more articles on the same topic (beyond the 2 used for ‘Step 1’) and include in the model for combining on common points & summarizing.
 1. Extend functionality to be able to enter a news article link on an interactive interface, which can automatically seek out articles with opposing bias on the same topic & combine/summarize them.
 1. Extend functionality to include viewpoints that have been completely omitted (or presented in an opposing manner) onto the combined article. 
